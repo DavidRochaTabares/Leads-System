@@ -1,0 +1,42 @@
+{
+  "summary": "Resultados is a dental clinic in Bogotá with a minimal online presence and no customer reviews. There are significant opportunities to enhance their digital footprint and establish trust with potential patients.",
+  "website_assessment": "The website lacks essential features such as user-friendly design, SEO optimization, and credibility indicators like patient testimonials, which can deter potential clients.",
+  "branding_assessment": "Resultados has no active social media presence and lacks professional branding elements, resulting in a weak digital identity that does not engage or attract potential patients.",
+  "pain_points": [
+    "No customer reviews or trust signals available online",
+    "Lack of social media engagement to reach new patients",
+    "Outdated website does not reflect professionalism"
+  ],
+  "business_opportunities": [
+    "Develop a modern, user-friendly website to improve patient engagement",
+    "Establish social media channels to connect with local community",
+    "Implement a reputation management strategy to collect patient reviews"
+  ],
+  "recommended_services": [
+    {
+      "service": "Website Redesign",
+      "justification": "A modern website will enhance user experience and establish trust, leading to increased patient inquiries."
+    },
+    {
+      "service": "Social Media Management",
+      "justification": "Creating social media profiles will allow Resultados to engage with potential patients and build a community presence."
+    },
+    {
+      "service": "Reputation Management",
+      "justification": "Encouraging patient reviews will improve online credibility and attract new clients."
+    }
+  ],
+  "lead_score": 70,
+  "score_reason": "The company has growth potential but is currently digitally immature with significant room for improvement in their online presence.",
+  "sales_strategy": "Approach with a focus on building credibility and attracting new patients through digital transformation.",
+  "personalized_email": "Subject: Elevate Your Dental Practice's Online Presence\n\nDear Resultados Team,\n\nI hope this message finds you well. I recently came across your clinic and noticed several opportunities to enhance your online presence, which could significantly attract more patients. \n\nAt SpineDev, we specialize in helping dental practices like yours establish a strong digital footprint through modern website design, active social media engagement, and reputation management strategies. \n\nWould you be open to a brief call to discuss how we can help Resultados thrive in the digital space?\n\nBest regards,\n[Your Name]\nSenior Digital Transformation Consultant\nSpineDev",
+  "linkedin_message": "Hi [Name], I noticed Resultados' potential in the dental market and wanted to connect. At SpineDev, we specialize in enhancing online presence for dental practices. Let’s discuss how we can help you attract more patients!",
+  "whatsapp_message": "Hi! This is [Your Name] from SpineDev. I see great potential for Resultados to enhance its online presence. Would you be open to a quick chat about how we can help?",
+  "cold_call_script": "Hello, is this [Contact Name]? Hi, this is [Your Name] from SpineDev. The reason for my call is that I see some great opportunities for Resultados to enhance its online presence, which could help attract more patients. Can I take a few minutes to share some ideas?",
+  "possible_objections": [
+    "We don't have the budget for marketing right now.",
+    "We're not interested in changing our current approach.",
+    "We don't see the need for an online presence."
+  ],
+  "next_best_action": "Schedule a follow-up call to discuss their current challenges and potential solutions."
+}

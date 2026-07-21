@@ -1,0 +1,27 @@
+{
+  "name": "spinedev-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SpineDev Internal Operating Platform",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:web\" \"npm run dev:api\"",
+    "dev:web": "cd apps/web && npm run dev",
+    "dev:api": "cd backend && python run.py",
+    "build": "npm run build:web",
+    "build:web": "cd apps/web && npm run build",
+    "lint": "npm run lint:web",
+    "lint:web": "cd apps/web && npm run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:build": "docker-compose build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "prettier": "^3.2.5"
+  }
+}

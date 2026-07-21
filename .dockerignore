@@ -1,0 +1,14 @@
+node_modules
+.next
+.git
+.gitignore
+*.md
+.env
+.env.local
+__pycache__
+*.pyc
+.pytest_cache
+.vscode
+.idea
+dist
+build
