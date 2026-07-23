@@ -6,7 +6,7 @@ import {
   ProspectingSessionLog,
 } from '../types';
 
-const POLLING_INTERVAL = 1000;
+const POLLING_INTERVAL = 3000; // Increased for Windows stability
 
 async function createSession(payload: ProspectingSessionCreatePayload): Promise<ProspectingSession> {
   return apiClient.post<ProspectingSession>('/prospecting/sessions', payload);
@@ -33,6 +33,7 @@ export function useProspectingSession() {
       if (!data) return false;
       return data.status === 'pending' || data.status === 'running' || data.status === 'analyzing' ? POLLING_INTERVAL : false;
     },
+    retry: 1, // Reduce retries to avoid socket saturation
   });
 }
 
@@ -42,6 +43,7 @@ export function useProspectingSessionLogs(sessionId: string | undefined, session
     queryFn: () => fetchSessionLogs(sessionId!),
     enabled: !!sessionId,
     refetchInterval: sessionStatus === 'pending' || sessionStatus === 'running' || sessionStatus === 'analyzing' ? POLLING_INTERVAL : false,
+    retry: 1, // Reduce retries to avoid socket saturation
   });
 }
 
