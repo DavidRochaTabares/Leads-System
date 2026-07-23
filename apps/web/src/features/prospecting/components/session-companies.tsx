@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/components/ui/card";
 import { apiClient } from "@/shared/lib/api";
 import { AIAnalysisCard } from "./ai-analysis-card";
+import { PipelineStatus } from "./pipeline-status";
 
 interface AIAnalysis {
   executive_summary?: string;
@@ -52,6 +53,23 @@ interface SessionCompaniesProps {
   sessionStatus?: string;
 }
 
+function CompanyPipeline({ companyId }: { companyId: string }) {
+  const { data: pipeline } = useQuery({
+    queryKey: ["company-pipeline", companyId],
+    queryFn: async (): Promise<any> => {
+      try {
+        const response = await apiClient.get(`/sales-pipeline/companies/${companyId}/active-pipeline`);
+        return response;
+      } catch (error) {
+        return null;
+      }
+    },
+    enabled: !!companyId,
+  });
+
+  return <PipelineStatus pipeline={pipeline || null} />;
+}
+
 export function SessionCompanies({ sessionId, sessionStatus }: SessionCompaniesProps) {
   const { data: companies, isLoading, refetch } = useQuery<Company[]>({
     queryKey: ["session-companies", sessionId],
@@ -61,10 +79,11 @@ export function SessionCompanies({ sessionId, sessionStatus }: SessionCompaniesP
       return response as Company[];
     },
     enabled: !!sessionId,
-    // Refetch while session is running OR analyzing
-    refetchInterval: (sessionStatus === 'pending' || sessionStatus === 'running' || sessionStatus === 'analyzing') ? 3000 : false,
+    // Refetch while session is running OR analyzing (increased interval for Windows stability)
+    refetchInterval: (sessionStatus === 'pending' || sessionStatus === 'running' || sessionStatus === 'analyzing') ? 5000 : false,
     // Refetch on window focus if completed (to get latest AI analysis)
     refetchOnWindowFocus: sessionStatus === 'completed',
+    retry: 1, // Reduce retries to avoid socket saturation
   });
 
   // Refetch when status changes to completed (with small delay to ensure AI data is saved)
@@ -191,6 +210,9 @@ export function SessionCompanies({ sessionId, sessionStatus }: SessionCompaniesP
               {company.ai_analysis && (
                 <AIAnalysisCard analysis={company.ai_analysis} companyName={company.name} />
               )}
+
+              {/* Sales Pipeline */}
+              <CompanyPipeline companyId={company.id} />
             </div>
           ))}
         </div>

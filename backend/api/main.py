@@ -6,7 +6,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from core.config import settings
-from api.routes import health, auth, prospecting
+from api.routes import health, auth, prospecting, sales_pipeline
 
 # Fix for Playwright on Windows
 if sys.platform == 'win32':
@@ -51,6 +51,7 @@ async def global_exception_handler(request: Request, exc: Exception):
 app.include_router(health.router)
 app.include_router(auth.router)
 app.include_router(prospecting.router)
+app.include_router(sales_pipeline.router)
 
 
 @app.get("/")

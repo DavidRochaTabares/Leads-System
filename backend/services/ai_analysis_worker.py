@@ -106,6 +106,26 @@ async def execute_ai_analysis(session_id: str) -> None:
                 analyzed_count += 1
                 session_repo.add_log(session_id, f"AI analysis saved: {company_name}")
                 
+                # Auto-create Sales Pipeline after successful AI analysis
+                try:
+                    from services.sales_pipeline.pipeline_service import PipelineService
+                    pipeline_service = PipelineService(supabase)
+                    
+                    # Create pipeline
+                    pipeline = pipeline_service.create_pipeline_for_company(company['id'])
+                    session_repo.add_log(session_id, f"Sales pipeline created for {company_name}")
+                    
+                    # Generate commercial strategy
+                    pipeline_service.generate_strategy(pipeline['id'])
+                    session_repo.add_log(session_id, f"Commercial strategy generated for {company_name}")
+                    
+                except Exception as pipeline_error:
+                    session_repo.add_log(
+                        session_id,
+                        f"Pipeline creation failed for {company_name}: {str(pipeline_error)}",
+                        level="error"
+                    )
+                
                 # Update progress
                 progress = int((analyzed_count / total_companies) * 100)
                 session_repo.update_status(session_id, "analyzing", progress=progress)
