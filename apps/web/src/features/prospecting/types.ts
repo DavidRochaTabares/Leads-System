@@ -10,7 +10,7 @@ export interface ProspectingSession {
   industry: string;
   location: string;
   max_companies: number;
-  status: 'pending' | 'running' | 'completed' | 'failed';
+  status: 'pending' | 'running' | 'analyzing' | 'completed' | 'failed';
   progress: number;
   error_message: string | null;
   created_at: string;

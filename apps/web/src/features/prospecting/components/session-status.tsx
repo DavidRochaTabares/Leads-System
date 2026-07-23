@@ -14,13 +14,22 @@ function StatusBadge({ status }: { status: string }) {
   const variants: Record<string, string> = {
     pending: 'bg-muted text-muted-foreground',
     running: 'bg-secondary text-secondary-foreground animate-pulse',
+    analyzing: 'bg-blue-500/20 text-blue-500 animate-pulse',
     completed: 'bg-green-500/20 text-green-500',
     failed: 'bg-destructive/20 text-destructive',
   };
 
+  const labels: Record<string, string> = {
+    pending: 'Pending',
+    running: 'Mining',
+    analyzing: 'Analyzing',
+    completed: 'Completed',
+    failed: 'Failed',
+  };
+
   return (
     <span className={`inline-flex px-2 py-1 rounded-full text-xs font-medium ${variants[status] || variants.pending}`}>
-      {status}
+      {labels[status] || status}
     </span>
   );
 }

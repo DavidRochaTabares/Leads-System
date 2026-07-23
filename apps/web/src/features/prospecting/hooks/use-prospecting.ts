@@ -31,7 +31,7 @@ export function useProspectingSession() {
     refetchInterval: (query) => {
       const data = query.state.data as ProspectingSession | null;
       if (!data) return false;
-      return data.status === 'pending' || data.status === 'running' ? POLLING_INTERVAL : false;
+      return data.status === 'pending' || data.status === 'running' || data.status === 'analyzing' ? POLLING_INTERVAL : false;
     },
   });
 }
@@ -41,7 +41,7 @@ export function useProspectingSessionLogs(sessionId: string | undefined, session
     queryKey: ['prospecting', 'logs', sessionId],
     queryFn: () => fetchSessionLogs(sessionId!),
     enabled: !!sessionId,
-    refetchInterval: sessionStatus === 'pending' || sessionStatus === 'running' ? POLLING_INTERVAL : false,
+    refetchInterval: sessionStatus === 'pending' || sessionStatus === 'running' || sessionStatus === 'analyzing' ? POLLING_INTERVAL : false,
   });
 }
 

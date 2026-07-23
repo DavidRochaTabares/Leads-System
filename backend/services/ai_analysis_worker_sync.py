@@ -1,4 +1,4 @@
-import asyncio
+import time
 from typing import List, Dict, Any
 from repositories.prospecting_supabase_repository import ProspectingSupabaseRepository
 from repositories.company_repository import CompanyRepository
@@ -6,9 +6,9 @@ from services.supabase_client import get_supabase
 from services.ai_service import AIService
 
 
-async def execute_ai_analysis(session_id: str) -> None:
+def execute_ai_analysis_sync(session_id: str) -> None:
     """
-    AI Analysis Worker - Runs AFTER scraping completes.
+    Synchronous AI Analysis Worker - Runs AFTER scraping completes.
     
     Analyzes each company using AI to generate:
     - Business insights
@@ -90,13 +90,8 @@ async def execute_ai_analysis(session_id: str) -> None:
                 
                 session_repo.add_log(session_id, f"Calling AI API for {company_name}...")
                 
-                # Call AI service (blocking call, run in executor to avoid blocking event loop)
-                loop = asyncio.get_event_loop()
-                ai_analysis = await loop.run_in_executor(
-                    None,
-                    ai_service.analyze_company,
-                    company_data
-                )
+                # Call AI service (synchronous)
+                ai_analysis = ai_service.analyze_company(company_data)
                 
                 session_repo.add_log(session_id, f"AI response received for {company_name}")
                 
@@ -111,7 +106,7 @@ async def execute_ai_analysis(session_id: str) -> None:
                 session_repo.update_status(session_id, "analyzing", progress=progress)
                 
                 # Small delay to avoid rate limiting
-                await asyncio.sleep(1)
+                time.sleep(1)
             
             except Exception as e:
                 failed_count += 1

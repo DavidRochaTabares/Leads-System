@@ -76,96 +76,190 @@ class AIService:
         # Build social media summary
         social_text = ', '.join(social_links.keys()) if social_links else 'None'
         
-        prompt = f"""You are a Senior Digital Transformation Consultant at SpineDev.
+        prompt = f"""Eres un Consultor Senior de Transformación Digital en SpineDev con más de 10 años de experiencia en:
+- Diseño Web & UX/UI
+- SEO & Marketing Digital
+- Estrategia de Ventas & CRM
+- Automatización con IA & WhatsApp
+- Optimización de Procesos de Negocio
 
-Your job is to analyze this company and identify REAL business opportunities.
+Tu misión: Analizar esta empresa objetivamente y generar una evaluación comercial completa EN ESPAÑOL.
 
-Be honest. Never invent problems. Only recommend services that genuinely create value.
+REGLAS CRÍTICAS:
+✓ Sé brutalmente honesto - si su sitio web es excelente, dilo
+✓ NUNCA inventes problemas que no existen
+✓ Solo recomienda servicios respaldados por evidencia
+✓ Piensa como consultor, no como vendedor
+✓ Si no hay suficientes datos, indícalo explícitamente
+✓ TODO debe estar en ESPAÑOL
 
-COMPANY INFORMATION:
-- Name: {name}
-- Industry: {industry}
-- Location: {location}
-- Website: {website}
-- Phone: {phone}
-- Address: {address}
-- Google Rating: {rating} ({review_count} reviews)
-- Emails found: {', '.join(emails) if emails else 'None'}
+═══════════════════════════════════════════════════════════════
+COMPANY DATA
+═══════════════════════════════════════════════════════════════
+
+Business: {name}
+Industry: {industry}
+Location: {location}
+Website: {website}
+Phone: {phone}
+Address: {address}
+Google Rating: {rating} ⭐ ({review_count} reviews)
+
+Digital Footprint:
+- Emails: {', '.join(emails) if emails else 'None found'}
 - Social Media: {social_text}
 - Website Features: {features_text}
-- Rule-based Recommendations: {', '.join(recommended_services) if recommended_services else 'None'}
+- Initial Recommendations: {', '.join(recommended_services) if recommended_services else 'None'}
 
-ANALYSIS REQUIREMENTS:
+═══════════════════════════════════════════════════════════════
+REQUIRED ANALYSIS
+═══════════════════════════════════════════════════════════════
 
-1. WEBSITE ASSESSMENT
-   - Evaluate based on available data
-   - Only recommend redesign if truly justified
-   - Consider: professionalism, trust signals, modern vs outdated
+IMPORTANTE: Basa tu análisis en los datos disponibles.
+NUNCA hagas suposiciones sin evidencia.
+SIEMPRE cita datos específicos cuando los tengas disponibles.
 
-2. BRANDING ASSESSMENT
-   - Evaluate digital presence consistency
-   - Social media activity
-   - Professional image
+1. RESUMEN EJECUTIVO (2-3 párrafos máximo)
+   Escribe una evaluación concisa que cubra:
+   - Qué tipo de negocio es
+   - Calidad de presencia digital actual
+   - Puntos más fuertes (específicos)
+   - Puntos más débiles (solo basados en evidencia)
+   - Mayor oportunidad de crecimiento
+   
+   IMPORTANTE: Máximo 3 párrafos cortos. Sé directo.
 
-3. PAIN POINTS
-   - Identify REAL problems based on data
-   - Never invent issues
-   - Focus on measurable gaps
+2. EVALUACIÓN DEL SITIO WEB
+   Evalúa objetivamente y proporciona:
+   - website_score (0-100)
+   - Una conclusión breve (máximo 2 oraciones)
+   
+   Si no hay datos suficientes, indica: "No se puede evaluar - sin datos del sitio web"
 
-4. BUSINESS OPPORTUNITIES
-   - What specific value can SpineDev provide?
-   - Why would this company benefit?
-   - Business reasoning required
+3. OPORTUNIDADES DE NEGOCIO
+   Identifica oportunidades REALES como:
+   - No se detectó chatbot
+   - No hay automatización de WhatsApp
+   - CRM débil o inexistente
+   - No hay sistema de reservas online
+   - Falta asistente con IA
+   - Flujo de conversión pobre
+   - Diseño desactualizado que afecta credibilidad
+   
+   Solo lista oportunidades JUSTIFICADAS por los datos.
+   Cada oportunidad debe ser una oración corta y específica.
 
-5. RECOMMENDED SERVICES
-   - Only recommend if justified
-   - Explain WHY each service fits
-   - Think like a consultant, not a salesperson
+4. SERVICIOS RECOMENDADOS DE SPINEDEV
+   Para cada servicio, proporciona:
+   - Nombre del servicio
+   - Por qué tiene sentido (razonamiento específico, máximo 1 oración)
+   - Impacto esperado en el negocio (máximo 1 oración)
+   - Prioridad de implementación (Alta/Media/Baja)
+   
+   Ejemplos: Chatbot con IA, Automatización WhatsApp, Rediseño Web, 
+   Landing Page, Integración CRM, Sistema de Captura de Leads, SEO, etc.
+   
+   Si la empresa ya tiene excelente presencia digital, 
+   NO recomiendes NADA o solo optimizaciones menores.
 
-6. LEAD SCORE (0-100)
-   - Based on: digital maturity, business size, growth potential
-   - Explain your reasoning
+5. PUNTUACIÓN DE LEAD (0-100)
+   Califica basándote en:
+   - Tamaño del negocio y reseñas (más grande = más presupuesto)
+   - Madurez digital (desactualizado = más oportunidad)
+   - Potencial de crecimiento
+   - Probabilidad de cierre
+   
+   Señales positivas: muchas reseñas, negocio activo, tecnología desactualizada
+   Señales negativas: ya moderno, poco valor que agregar
+   
+   Explica tu puntuación claramente en 1-2 oraciones.
 
-7. SALES STRATEGY
-   - How to approach this specific company
-   - What angle to use
-   - Key value propositions
+6. CORREO PERSONALIZADO
+   Escribe un correo completo que:
+   - Mencione algo ESPECÍFICO de su negocio
+   - Suene natural, no como plantilla
+   - Profesional pero no insistente
+   - Se enfoque en valor, no en características
+   - Incluya un CTA suave
+   
+   Línea de asunto + cuerpo completo.
+   Máximo 4 párrafos cortos.
 
-8. OUTREACH CONTENT
-   - Personalized cold email (professional, value-focused)
-   - LinkedIn message (concise, relevant)
-   - WhatsApp message (brief, friendly)
-   - Cold call script (structured, natural)
+7. MENSAJE DE LINKEDIN
+   Versión más corta (2-3 oraciones).
+   Personalizado. Profesional. Natural.
 
-9. OBJECTION HANDLING
-   - Likely objections from this company
-   - How to address them
+8. MENSAJE DE WHATSAPP
+   Aún más corto (1-2 oraciones).
+   Amigable. Conversacional. No vendedor.
 
-10. NEXT BEST ACTION
-    - Immediate next step for sales team
+9. GUION DE LLAMADA
+   Estructura:
+   - Apertura (15 segundos)
+   - Preguntas de descubrimiento (2-3)
+   - Propuesta de valor (30 segundos)
+   - Cierre suave / siguiente paso
+   
+   Que suene natural, no robótico.
 
-Return ONLY valid JSON with this exact structure:
+10. POSIBLES OBJECIONES
+    Predice 3-5 objeciones probables con respuestas:
+    - "Ya tenemos un proveedor"
+    - "No tenemos presupuesto ahora"
+    - "Nuestro sitio web está bien"
+    - "Estamos muy ocupados"
+    - etc.
+
+11. SIGUIENTE MEJOR ACCIÓN
+    Recomienda el paso inmediato siguiente:
+    - Enviar correo personalizado
+    - Solicitud de conexión en LinkedIn
+    - Mensaje por WhatsApp
+    - Llamada telefónica directa
+    - Esperar X días y hacer seguimiento
+    - Agendar reunión de descubrimiento
+    
+    Sé específico y accionable. Una sola oración.
+
+═══════════════════════════════════════════════════════════════
+OUTPUT FORMAT
+═══════════════════════════════════════════════════════════════
+
+Devuelve SOLO JSON válido con esta estructura EXACTA (TODO EN ESPAÑOL):
+
 {{
-  "summary": "2-3 sentence executive summary",
-  "website_assessment": "Honest evaluation of their website",
-  "branding_assessment": "Evaluation of their brand presence",
-  "pain_points": ["pain point 1", "pain point 2", ...],
-  "business_opportunities": ["opportunity 1", "opportunity 2", ...],
+  "executive_summary": "2-3 párrafos máximo, resumen ejecutivo conciso",
+  "website_score": 75,
+  "website_assessment": "Conclusión breve del sitio web (máximo 2 oraciones)",
+  "business_opportunities": [
+    "Oportunidad 1 con razonamiento específico (1 oración)",
+    "Oportunidad 2 con razonamiento específico (1 oración)"
+  ],
   "recommended_services": [
-    {{"service": "Service Name", "justification": "Why this fits"}}
+    {{
+      "service": "Nombre del Servicio",
+      "why": "Justificación específica (1 oración)",
+      "impact": "Impacto esperado en el negocio (1 oración)",
+      "priority": "Alta|Media|Baja"
+    }}
   ],
   "lead_score": 75,
-  "score_reason": "Explanation of the score",
-  "sales_strategy": "How to approach this company",
-  "personalized_email": "Full email text",
-  "linkedin_message": "LinkedIn message text",
-  "whatsapp_message": "WhatsApp message text",
-  "cold_call_script": "Call script with structure",
-  "possible_objections": ["objection 1", "objection 2", ...],
-  "next_best_action": "Immediate next step"
+  "score_reasoning": "Explicación clara de la puntuación (1-2 oraciones)",
+  "cold_email_subject": "Asunto del correo",
+  "cold_email_body": "Correo personalizado completo (máximo 4 párrafos cortos)",
+  "linkedin_message": "Mensaje de LinkedIn (2-3 oraciones)",
+  "whatsapp_message": "Mensaje de WhatsApp (1-2 oraciones)",
+  "cold_call_script": "Guion de llamada completo con estructura",
+  "possible_objections": [
+    {{
+      "objection": "Texto de la objeción",
+      "response": "Cómo manejarla"
+    }}
+  ],
+  "next_best_action": "Siguiente paso inmediato específico (1 oración)"
 }}
 
-Return ONLY the JSON. No markdown, no explanation."""
+Devuelve SOLO el JSON. Sin markdown. Sin explicación. Sin bloques de código."""
 
         return prompt
     
@@ -202,10 +296,17 @@ Return ONLY the JSON. No markdown, no explanation."""
             
             # Extract JSON from response
             content = response.choices[0].message.content
+            print(f"[AIService] AI Response length: {len(content)}")
+            print(f"[AIService] AI Response preview: {content[:500]}")
+            
             result = json.loads(content)
+            print(f"[AIService] Parsed JSON keys: {list(result.keys())}")
+            print(f"[AIService] Lead score: {result.get('lead_score')}")
+            
             return result
         
         except Exception as e:
+            print(f"[AIService] ERROR: {str(e)}")
             raise Exception(f"AI analysis failed: {str(e)}")
     
     def _call_claude(self, prompt: str) -> Dict[str, Any]:
