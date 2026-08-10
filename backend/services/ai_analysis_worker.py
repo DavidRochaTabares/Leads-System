@@ -116,8 +116,28 @@ async def execute_ai_analysis(session_id: str) -> None:
                     session_repo.add_log(session_id, f"Sales pipeline created for {company_name}")
                     
                     # Generate commercial strategy
-                    pipeline_service.generate_strategy(pipeline['id'])
-                    session_repo.add_log(session_id, f"Commercial strategy generated for {company_name}")
+                    try:
+                        pipeline_service.generate_strategy(pipeline['id'])
+                        session_repo.add_log(session_id, f"Commercial strategy generated for {company_name}")
+                    except Exception as strategy_error:
+                        session_repo.add_log(
+                            session_id,
+                            f"Strategy generation failed for {company_name}: {str(strategy_error)}",
+                            level="error"
+                        )
+                        raise
+                    
+                    # Generate WhatsApp message
+                    try:
+                        pipeline_service.generate_whatsapp_message(pipeline['id'])
+                        session_repo.add_log(session_id, f"WhatsApp message generated for {company_name}")
+                    except Exception as message_error:
+                        session_repo.add_log(
+                            session_id,
+                            f"WhatsApp message generation failed for {company_name}: {str(message_error)}",
+                            level="error"
+                        )
+                        # Don't raise - pipeline is still valid without message
                     
                 except Exception as pipeline_error:
                     session_repo.add_log(

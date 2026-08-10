@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/components/ui/card";
 import { Badge } from "@/shared/components/ui/badge";
+import { WhatsAppMessageCard } from "./whatsapp-message-card";
 
 interface CommercialOpportunity {
   description: string;
@@ -27,6 +28,13 @@ interface SalesBrief {
   estimated_success_probability?: number;
 }
 
+interface WhatsAppMessage {
+  status: string;
+  generated_at: string;
+  message: string;
+  version: number;
+}
+
 interface SalesPipeline {
   id: string;
   company_id: string;
@@ -34,6 +42,10 @@ interface SalesPipeline {
   current_stage: string;
   strategy?: SalesBrief;
   strategy_status: string;
+  whatsapp_message?: WhatsAppMessage;
+  delivery_status?: string;
+  message_sent_at?: string;
+  last_error?: string;
   next_action?: string;
   next_action_date?: string;
   last_activity?: string;
@@ -319,6 +331,15 @@ export function PipelineStatus({ pipeline }: PipelineStatusProps) {
           )}
         </CardContent>
       </Card>
+
+      {/* WhatsApp Message */}
+      <WhatsAppMessageCard 
+        pipelineId={pipeline.id} 
+        message={pipeline.whatsapp_message || null}
+        deliveryStatus={pipeline.delivery_status}
+        messageSentAt={pipeline.message_sent_at}
+        lastError={pipeline.last_error}
+      />
     </div>
   );
 }
