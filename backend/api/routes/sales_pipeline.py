@@ -106,3 +106,45 @@ def mark_as_lost(
     service = PipelineService(supabase)
     pipeline = service.mark_as_lost(pipeline_id)
     return pipeline
+
+
+@router.post("/pipelines/{pipeline_id}/generate-whatsapp-message")
+def generate_whatsapp_message(
+    pipeline_id: str,
+    supabase: Client = Depends(get_supabase)
+):
+    """Generate WhatsApp message for a pipeline"""
+    service = PipelineService(supabase)
+    try:
+        pipeline = service.generate_whatsapp_message(pipeline_id)
+        return pipeline
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/pipelines/{pipeline_id}/regenerate-whatsapp-message")
+def regenerate_whatsapp_message(
+    pipeline_id: str,
+    supabase: Client = Depends(get_supabase)
+):
+    """Regenerate WhatsApp message for a pipeline"""
+    service = PipelineService(supabase)
+    try:
+        pipeline = service.regenerate_whatsapp_message(pipeline_id)
+        return pipeline
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/pipelines/{pipeline_id}/send-whatsapp-message")
+def send_whatsapp_message(
+    pipeline_id: str,
+    supabase: Client = Depends(get_supabase)
+):
+    """Send WhatsApp message for a pipeline"""
+    service = PipelineService(supabase)
+    try:
+        pipeline = service.send_whatsapp_message(pipeline_id)
+        return pipeline
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

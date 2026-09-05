@@ -22,6 +22,14 @@ class Settings(BaseSettings):
     google_api_key: str = ""
     openai_api_key: str = ""
     
+    # WhatsApp Business Cloud API
+    whatsapp_access_token: str = ""
+    whatsapp_phone_number_id: str = ""
+    whatsapp_business_account_id: str = ""
+    whatsapp_verify_token: str = ""
+    whatsapp_min_delay_seconds: str = "120"
+    whatsapp_template_name: str = "cold_outreach_v1"
+    
     allowed_origins: str = "http://localhost:3000"
     
     @property
